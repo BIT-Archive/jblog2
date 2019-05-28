@@ -17,7 +17,7 @@
 		<c:import url="/WEB-INF/views/include/menu.jsp"/>
 		<form class="join-form" id="join-form" method="post" action="">
 			<label class="block-label" for="name">이름</label>
-			<input id="name"name="name" type="text" value="">
+			<input id="name" name="name" type="text" value="">
 			
 			<spring:hasBindErrors name="user">
 						<c:if test="${errors.hasFieldErrors('name') }">

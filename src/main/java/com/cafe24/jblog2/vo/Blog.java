@@ -2,14 +2,15 @@ package com.cafe24.jblog2.vo;
 
 public class Blog {
 
-	long id;
+	String id;
 	String title;
 	String logo;
 	
-	public long getId() {
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTitle() {

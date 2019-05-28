@@ -10,8 +10,17 @@
 		values(#{id}, #{name}, "default.jpg")
 	
 	]]>
-		
 	</insert>
+	
+	<select id="getblog" parameterType="string">
+	<![CDATA[
+		select id, title, logo
+		from blog
+		where id=#{id}
+	
+	]]>
+	
+	</select>
 	
 </mapper>
 

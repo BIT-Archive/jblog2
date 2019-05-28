@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cafe24.jblog2.service.BlogService;
 import com.cafe24.jblog2.service.UserService;
 import com.cafe24.jblog2.vo.User;
 
@@ -20,6 +21,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BlogService blogService;
+	
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join_GET() {
@@ -42,9 +47,10 @@ public class UserController {
 		}
 		
 		userService.join(user);
+		blogService.create(user);
 		
 		
-		return "redirect:user/joinsuccess";
+		return "user/joinsuccess";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
