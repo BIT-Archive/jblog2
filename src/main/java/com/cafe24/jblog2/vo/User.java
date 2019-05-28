@@ -5,22 +5,24 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class User {
 
-	long id;
+	private String id;
 	
 	@NotEmpty
 	@Length(min=2, max=8)
-	String name;
+	private String name;
 	
 	@NotEmpty
-	String password;
+	private String password;
 	
-	String reg_date;
+	private String reg_date;
 
-	public long getId() {
+	
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -46,6 +48,11 @@ public class User {
 
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", password=" + password + ", reg_date=" + reg_date + "]";
 	}
 	
 	
