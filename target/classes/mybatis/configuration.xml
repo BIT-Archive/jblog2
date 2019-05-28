@@ -3,8 +3,10 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="user" type="com.cafe24.jblog2.vo.User"></typeAlias>
+		<typeAlias alias="blog" type="com.cafe24.jblog2.vo.Blog"></typeAlias>
     </typeAliases>	
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/blog.xml" />
 	</mappers>
 </configuration>

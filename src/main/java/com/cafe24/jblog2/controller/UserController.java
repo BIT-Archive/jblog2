@@ -1,5 +1,6 @@
 package com.cafe24.jblog2.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,44 @@ public class UserController {
 		if(result.hasErrors()) {
 			
 		
-		model.addAllAttributes(result.getModel());
+			model.addAllAttributes(result.getModel());
 		
 		
-		return "/user/join";
+			return "/user/join";
 		}
 		
 		userService.join(user);
 		
+		
+		return "redirect:user/joinsuccess";
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String login_GET() {
+		
+		
+		return "user/login";
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String login_POST(@ModelAttribute User user,
+								HttpSession session) {
+		
+		User authUser = userService.LoginAuth(user);
+		
+		if( authUser == null) {
+			return "user/login";
+		}
+		
+		session.setAttribute("authUser", authUser);
+		return "redirect:/";
+		
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("authUser");
+		session.invalidate();
 		return "redirect:/";
 	}
 	

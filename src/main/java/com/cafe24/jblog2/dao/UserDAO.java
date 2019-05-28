@@ -30,4 +30,8 @@ public class UserDAO {
 		return list;
 	}
 
+	public User LoginAuth(User user) {
+		return sqlSession.selectOne("user.LoginAuth", user);
+	}
+
 }

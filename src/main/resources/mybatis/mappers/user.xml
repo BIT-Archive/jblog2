@@ -12,8 +12,19 @@
 	
 	
 	</select>
+	
+	<select id="LoginAuth" resultType="user">
+	
+	<![CDATA[
+		select id, name, password, reg_date
+		from user
+		where id=#{id} AND password=#{password}
+		]]>
+	
+	
+	</select>
 
-	<insert id="insert" parameterType="user">
+	<insert id="join" parameterType="user">
 	<![CDATA[
 		insert 
 			into user (id, name, password, reg_date)

@@ -22,4 +22,8 @@ public class UserService {
 		return userDAO.findAll();
 	}
 
+	public User LoginAuth(User user) {
+		return userDAO.LoginAuth(user);
+	}
+
 }
