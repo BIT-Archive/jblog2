@@ -35,7 +35,9 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
-	<mvc:default-servlet-handler />
+	<mvc:default-servlet-handler/>
+	
+	<mvc:resources mapping="/assets/css/**" location="/" />
 
 	<!-- ViewResolver 설정 -->
 

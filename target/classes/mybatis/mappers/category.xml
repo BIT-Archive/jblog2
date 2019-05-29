@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+
+	<select id="getList" parameterType="string" resultType="category">
+	<![CDATA[
+	
+		select name, no
+			from category
+		where id = #{id}
+	]]>
+	
+	
+	</select>
+	
+	<select id="getNoById" parameterType="string">
+		<![CDATA[
+	
+		select DISTINCT(no)
+			from category
+		where id = #{id}
+		
+		]]>
+	
+	</select>
+	
+	<insert id="init" parameterType="user">
+	
+		<![CDATA[
+	
+		insert into category
+			values(null, "미분류", "가입시 기본 카테고리", now(), #{id}, "spring-logo.jpg")
+		
+		]]>
+	
+	</insert>
+
+</mapper>
+

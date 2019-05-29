@@ -2,9 +2,9 @@ package com.cafe24.jblog2.vo;
 
 public class Blog {
 
-	String id;
-	String title;
-	String logo;
+	private String id;
+	private String title;
+	private String logo;
 	
 	
 	public String getId() {

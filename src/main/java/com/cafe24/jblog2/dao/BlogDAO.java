@@ -19,7 +19,7 @@ public class BlogDAO {
 
 	public Blog getBlog(String id) {
 		
-		return sqlSession.selectOne("blog.getblog", id);
+		return (Blog) sqlSession.selectList("blog.getblog", id).get(0);
 	}
 
 }

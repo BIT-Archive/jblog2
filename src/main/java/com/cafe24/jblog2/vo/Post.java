@@ -2,11 +2,13 @@ package com.cafe24.jblog2.vo;
 
 public class Post {
 	
-	long no;
-	String title;
-	String contents;
-	String reg_date;
-	long category_no;
+	private long no;
+	private String title;
+	private String contents;
+	private String reg_date;
+	private long category_no;
+	
+	private String id;
 	
 	public long getNo() {
 		return no;
@@ -37,6 +39,12 @@ public class Post {
 	}
 	public void setCategory_no(long category_no) {
 		this.category_no = category_no;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

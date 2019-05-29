@@ -45,8 +45,26 @@ public class BlogService {
 		return postDAO.getPostList(category_no);
 	}
 	
-	public Long findNoById(String id) {
+	public List<Long> findNoById(String id) {
 		return categoryDAO.getNoById(id);
 	}
+	
+	public List<Post> recentPost(String id){
+		return postDAO.recentPost(id);
+	}
+
+	public List<Post> getPost(Long post_no) {
+		return postDAO.getPost(post_no);
+	}
+
+	public void initCategory(User user) {
+		categoryDAO.initCategory(user);
+	}
+
+	
+
+	
+	
+	
 
 }

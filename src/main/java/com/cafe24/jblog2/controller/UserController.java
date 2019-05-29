@@ -48,6 +48,7 @@ public class UserController {
 		
 		userService.join(user);
 		blogService.create(user);
+		blogService.initCategory(user);
 		
 		
 		return "user/joinsuccess";

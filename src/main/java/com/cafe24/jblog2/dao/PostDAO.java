@@ -17,9 +17,16 @@ public class PostDAO {
 	public List<Post> getPostList(Long category_no) {
 		return sqlSession.selectList("post.getList", category_no);
 	}
-	
-	public List<Post> getPostList() {
-		return sqlSession.selectList("post.getAllList");
+
+	public List<Post> recentPost(String id) {
+		return sqlSession.selectList("post.recentList", id);
 	}
+
+	public List<Post> getPost(Long post_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("post.getPost", post_no);
+	}
+
+	
 
 }

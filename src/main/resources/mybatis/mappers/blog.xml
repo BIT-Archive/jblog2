@@ -12,7 +12,7 @@
 	]]>
 	</insert>
 	
-	<select id="getblog" parameterType="string">
+	<select id="getblog" parameterType="string" resultType="blog">
 	<![CDATA[
 		select id, title, logo
 		from blog

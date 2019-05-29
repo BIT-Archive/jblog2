@@ -11,30 +11,23 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>${blog.title}</h1>
-			<ul>
-				<li><a href="">로그인</a></li>
-				<li><a href="">로그아웃</a></li>
-				<li><a href="">블로그 관리</a></li>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/include/blog_header.jsp"/>
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<h4>Spring Camp 2016 참여기</h4>
+					
+					<c:if test="${post[0] ne null }">
+						<h4>${post[0].title }</h4>
+					
 					<p>
-						
+						${post[0].contents }
 					<p>
+					</c:if>
 				</div>
 				<ul class="blog-list">
-					<c:forEach items="${post }" var="post" varStatus="status">
-						<li><a href="${pageContext.request.contextPath}/${blog.id}/${category.no}/${post.id}">${post.title}</a> <span>${post.reg_date }</span>	</li>
+					<c:forEach items="${post }" var="post" varStatus="status" begin="1">
+						<li><a href="${pageContext.request.contextPath}/${blog.id}/${post.category_no}/${post.no}">${post.title}</a> <span>${post.reg_date }</span>	</li>
 					</c:forEach>
-					<!-- <li><a href="">Spring Boot 사용법 정리</a> <span>2015/05/02</span>	</li>
-					<li><a href="">Spring Security 설정법</a> <span>2015/05/02</span>	</li>
-					<li><a href="">JPA + Hinernate</a> <span>2015/05/02</span>	</li>
-					<li><a href="">AOP 활용하기 - DAO 실행시간 측정하기</a> <span>2015/05/02</span>	</li> -->
 				</ul>
 			</div>
 		</div>
@@ -48,9 +41,9 @@
 		<div id="navigation">
 			<h2>카테고리</h2>
 			<ul>
-				<li><a href="">닥치고 스프링</a></li>
-				<c:forEach items="${post }" var="post" varStatus="status">
-						<li><a href="${pageContext.request.contextPath}/${blog.id}/${category.no}">${category.name}</a></li>
+				
+				<c:forEach items="${category }" var="post" varStatus="status">
+						<li><a href="${pageContext.request.contextPath}/${blog.id}/${category[status.index].no}">${category[status.index].name}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
