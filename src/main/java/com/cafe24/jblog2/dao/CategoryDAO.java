@@ -28,4 +28,8 @@ public class CategoryDAO {
 		sqlSession.insert("category.init", user);
 	}
 
+	public List<Category> getCategoryListTable(String id) {
+		return sqlSession.selectList("category.getListInfo",id);
+	}
+
 }

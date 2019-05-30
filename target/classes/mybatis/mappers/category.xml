@@ -8,9 +8,19 @@
 		select name, no
 			from category
 		where id = #{id}
+		order by reg_date ASC;
 	]]>
 	
 	
+	</select>
+	
+	<select id="getListInfo" parameterType="string" resultType="category">
+	<![CDATA[	
+		select no, name, count(*) as count, description
+			from category
+		where id = #{id}
+        group by name;
+	]]>
 	</select>
 	
 	<select id="getNoById" parameterType="string">
@@ -29,7 +39,7 @@
 		<![CDATA[
 	
 		insert into category
-			values(null, "미분류", "가입시 기본 카테고리", now(), #{id}, "spring-logo.jpg")
+			values(null, "미분류", "카테고리를 지정하지 않은 경우", now(), #{id}, "spring-logo.jpg")
 		
 		]]>
 	

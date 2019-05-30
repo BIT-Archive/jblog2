@@ -10,6 +10,8 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<mvc:resources mapping="/images/**" location="file:/mysite-uploads/" order="0"/>
+
 	<!-- Validator, Conversion Service, Formatter Message Converter 설정 -->
 	<mvc:annotation-driven>
 
@@ -33,12 +35,13 @@
 				</property>
 			</bean>
 		</mvc:message-converters>
+		
+		
 	</mvc:annotation-driven>
 
-	<mvc:default-servlet-handler/>
+	<mvc:default-servlet-handler />
 	
-	<mvc:resources mapping="/assets/css/**" location="/" />
-
+		
 	<!-- ViewResolver 설정 -->
 
 	<bean id="viewResolver"

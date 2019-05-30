@@ -27,6 +27,10 @@ public class PostDAO {
 		return sqlSession.selectList("post.getPost", post_no);
 	}
 
+	public void insertPost(Post post) {
+		sqlSession.insert("post.insertPost", post);
+	}
+
 	
 
 }

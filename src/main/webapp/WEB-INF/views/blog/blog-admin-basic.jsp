@@ -14,12 +14,10 @@
 		<c:import url="/WEB-INF/views/include/blog_header.jsp"/>
 		<div id="wrapper">
 			<div id="content" class="full-screen">
-				<ul class="admin-menu">
-					<li class="selected">기본설정</li>
-					<li><a href="">카테고리</a></li>
-					<li><a href="">글작성</a></li>
-				</ul>
-				<form action="/${blog.id }/admin/basic" method="post">
+				<c:import url="/WEB-INF/views/include/admin-menu.jsp">
+					<c:param name="menu" value="basic"></c:param>
+				</c:import>
+				<form action="${pageContext.request.contextPath}/${blog.id }/admin/basic" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
@@ -27,11 +25,11 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}/assets/images/${blog.logo}"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}${blog.logo}"></td>      			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
-			      			<td><input type="file" name="logo-file"></td>      			
+			      			<td><input type="file" name="file"></td>      			
 			      		</tr>           		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>

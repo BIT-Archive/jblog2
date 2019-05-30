@@ -7,6 +7,7 @@
 		SELECT title, no, reg_date, contents, category_no
 		FROM post
 		WHERE category_no = #{category_no}
+		order by reg_date DESC;
 		
 		]]>
 	</select>
@@ -36,6 +37,15 @@
 		]]>
 	
 	</select>
+	
+	<insert id="insertPost" parameterType="post">
+		<![CDATA[
+	
+		insert into post
+			values(null, #{title}, #{contents}, now(), #{category_no})		
+		]]>
+		
+	</insert>
 
 </mapper>
 

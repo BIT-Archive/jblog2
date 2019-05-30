@@ -1,5 +1,7 @@
 package com.cafe24.jblog2.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,78 +11,106 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.jblog2.service.BlogService;
 import com.cafe24.jblog2.vo.Blog;
+import com.cafe24.jblog2.vo.Post;
 
 @Controller
+@RequestMapping("/{id:(?!assets).*}")
 public class BlogController {
 	
 	@Autowired
-	BlogService blogService;
+	private BlogService blogService;
 	
-	@RequestMapping(value="/{id}" )
-	public String index_id(@PathVariable("id") String id, Model model) {
-		
+
+	
+	
+	@RequestMapping(value= {"", "/{category_no}", "/{category_no}/{post_no}"})
+	public String index_id(@PathVariable String id,
+							@PathVariable Optional<Long> category_no,
+							@PathVariable Optional<Long> post_no,
+								Model model) {
 		
 		model.addAttribute("blog", blogService.getBlog(id));
 		model.addAttribute("category", blogService.getCategoryList(id));
-		model.addAttribute("post", blogService.recentPost(id));
+		model.addAttribute("post",blogService.getPostList(id, category_no, post_no));
 
 		return "blog/blog-main";
 	}
-	
-	@RequestMapping(value="/{id}/{category_no}" )
-	public String index_id_categoryno(@PathVariable("id") String id,
-									  @PathVariable("category_no") Long category_no,
-									  Model model) {
-		
-		
-		model.addAttribute("blog", blogService.getBlog(id));
-		model.addAttribute("category", blogService.getCategoryList(id));
-		model.addAttribute("post", blogService.getPostList(category_no));
 
-		return "blog/blog-main";
-	}
-	
-	@RequestMapping(value="/{id}/{category_no}/{post_no}" )
-	public String index_id_categoryno(@PathVariable("id") String id,
-									  @PathVariable("category_no") Long category_no,
-									  @PathVariable("post_no") Long post_no,
-									  Model model) {
-		
-		
-		model.addAttribute("blog", blogService.getBlog(id));
-		model.addAttribute("category", blogService.getCategoryList(id));
-		model.addAttribute("post", blogService.getPost(post_no));
-
-		return "blog/blog-main";
-	}
-	
-	@RequestMapping(value="/{id}/admin/basic", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/basic", method=RequestMethod.GET)
 	public String admin_get(@PathVariable("id") String id,
 							HttpSession session,
 							Model model) {
-		
 		
 		model.addAttribute("blog", blogService.getBlog(id));
 		
 		return "blog/blog-admin-basic";
 	}
 	
-	@RequestMapping(value="/{id}/admin/basic", method=RequestMethod.POST)
-	public String admin_get(@PathVariable("id") String id,
+	@RequestMapping(value="/admin/basic", method=RequestMethod.POST)
+	public String admin_post(@PathVariable("id") String id,
 							HttpSession session,
 							@ModelAttribute Blog blog,
+							 @RequestParam(value="file") MultipartFile multipartFile,
 							Model model) {
 		
+		String url = blogService.getUrl(multipartFile);
 		
-		model.addAttribute("blog", blogService.getBlog(id));
+		blogService.UpdateBlog(blog, url);
 		
-		return "blog/blog-admin-basic";
+		return "redirect:/"+id;
 	}
 	
+	@RequestMapping(value="/admin/write", method=RequestMethod.GET)
+	public String write_get(@PathVariable("id") String id,
+						Model model,
+						HttpSession session) {
+		
+		model.addAttribute("blog", blogService.getBlog(id));
+		model.addAttribute("category", blogService.getCategoryList(id));
+		
+		
+		return "blog/blog-admin-write";
+	}
 	
+	@RequestMapping(value="/admin/write", method=RequestMethod.POST)
+	public String write_get(@PathVariable("id") String id,
+						Model model,
+						HttpSession session,
+						@ModelAttribute Post post) {
+		
+		blogService.insertPost(post);
+		
+		
+		return "redirect:/"+id;
+	}
+	
+	@RequestMapping(value="/admin/category")
+	public String category(@PathVariable("id") String id,
+						Model model,
+						HttpSession session) {
+		
+		model.addAttribute("blog", blogService.getBlog(id));
+		model.addAttribute("category", blogService.getCategoryListTable(id));
+ 
+		return "blog/blog-admin-category";
+	}
+	
+	@RequestMapping(value="/admin/delete")
+	public @ResponseBody String delete_ajax(@PathVariable("id") String id,
+						Model model,
+						HttpSession session,
+						@RequestParam(value="no", required=true) Long no) {
+		
+		blogService.deleteCategory(id, no);
+ 
+		return "삭제 성공!";
+	}
 	
 
 }

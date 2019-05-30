@@ -8,6 +8,7 @@ public class Category {
 	String reg_date;
 	long id;
 	
+	long count;
 	
 	public long getNo() {
 		return no;
@@ -38,6 +39,12 @@ public class Category {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	public long getCount() {
+		return count;
+	}
+	public void setCount(long count) {
+		this.count = count;
 	}
 	
 	

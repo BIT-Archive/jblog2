@@ -22,4 +22,11 @@ public class BlogDAO {
 		return (Blog) sqlSession.selectList("blog.getblog", id).get(0);
 	}
 
+	public void UpdateBlog(Blog blog, String url) {
+		blog.setLogo(url);
+		sqlSession.update("blog.Updateblog", blog);
+	}
+
+
+
 }
