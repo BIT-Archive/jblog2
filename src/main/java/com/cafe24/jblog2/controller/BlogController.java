@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cafe24.jblog2.service.BlogService;
 import com.cafe24.jblog2.vo.Blog;
+import com.cafe24.jblog2.vo.Category;
 import com.cafe24.jblog2.vo.Post;
 
 @Controller
@@ -107,9 +108,27 @@ public class BlogController {
 						HttpSession session,
 						@RequestParam(value="no", required=true) Long no) {
 		
+		
+		blogService.deletePostByCategory(no);
 		blogService.deleteCategory(id, no);
  
 		return "삭제 성공!";
+	}
+	
+	
+	@RequestMapping(value="/admin/category_new")
+	public @ResponseBody Category delete_ajax(@PathVariable("id") String id,
+						Model model,
+						HttpSession session,
+						@RequestParam(value="name", required=true) String name,
+						@RequestParam(value="description", required=true) String description) {
+		
+
+		blogService.createCategory(id, name, description);
+		
+		Category category = blogService.getLastCategory(id);
+		
+		return category;
 	}
 	
 

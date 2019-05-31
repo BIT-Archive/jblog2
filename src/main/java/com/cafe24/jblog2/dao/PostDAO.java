@@ -31,6 +31,10 @@ public class PostDAO {
 		sqlSession.insert("post.insertPost", post);
 	}
 
+	public void deletePostByCategory(Long no) {
+		sqlSession.delete("post.deletePostByCategory", no);
+	}
+
 	
 
 }

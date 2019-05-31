@@ -139,4 +139,16 @@ public class BlogService {
 		categoryDAO.deleteCategory(id, no);
 	}
 
+	public void deletePostByCategory(Long no) {
+		postDAO.deletePostByCategory(no);
+	}
+
+	public void createCategory(String id, String name, String description) {
+		categoryDAO.createCategory(id, name, description);
+	}
+
+	public Category getLastCategory(String id) {
+		return categoryDAO.getLastCategory(id);
+	}
+
 }

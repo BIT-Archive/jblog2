@@ -6,9 +6,13 @@ public class Category {
 	String name;
 	String description;
 	String reg_date;
-	long id;
+	String id;
 	
 	long count;
+	
+
+	public Category() {
+	}
 	
 	public long getNo() {
 		return no;
@@ -34,10 +38,11 @@ public class Category {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public long getId() {
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public long getCount() {

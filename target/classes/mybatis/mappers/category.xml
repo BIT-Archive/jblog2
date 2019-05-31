@@ -5,10 +5,22 @@
 	<select id="getList" parameterType="string" resultType="category">
 	<![CDATA[
 	
-		select name, no
+		select name, no, description
 			from category
 		where id = #{id}
-		order by reg_date ASC;
+		group by name
+		order by reg_date ASC
+	]]>
+	
+	
+	</select>
+	<select id="getLastCategory" parameterType="string" resultType="category">
+	<![CDATA[
+		select *
+		from category
+		where id = #{id}
+		order by reg_date DESC
+		limit 0, 1;
 	]]>
 	
 	
@@ -16,10 +28,11 @@
 	
 	<select id="getListInfo" parameterType="string" resultType="category">
 	<![CDATA[	
-		select no, name, count(*) as count, description
-			from category
-		where id = #{id}
-        group by name;
+		select c.no, c.name, count(p.no) as count, description
+		from category c, post p
+		where c.no = p.category_no
+		and id=#{id}
+		group by c.name
 	]]>
 	</select>
 	
@@ -44,6 +57,26 @@
 		]]>
 	
 	</insert>
+	<insert id="createCategory" parameterType="category">
+	
+		<![CDATA[
+	
+		insert into category
+			values(null, #{name}, #{description}, now(), #{id})
+		
+		]]>
+	
+	</insert>
+	
+	<delete id="deleteCategory" parameterType="category">
+		<![CDATA[
+	
+		delete from category
+		 where id=#{id} AND no=#{no}
+		
+		]]>
+	
+	</delete>
 
 </mapper>
 

@@ -43,15 +43,15 @@
 		      	<table id="admin-cat-add">
 		      		<tr>
 		      			<td class="t">카테고리명</td>
-		      			<td><input type="text" name="name"></td>
+		      			<td><input type="text" id="name"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="t">설명</td>
-		      			<td><input type="text" name="desc"></td>
+		      			<td><input type="text" id="desc"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="s">&nbsp;</td>
-		      			<td><input type="submit" value="카테고리 추가"></td>
+		      			<td><input type="submit" value="카테고리 추가" id="submit_buttom"></td>
 		      		</tr>      		      		
 		      	</table> 
 			</div>
@@ -80,16 +80,46 @@ window.onload = function(){
             success:function(result, textStatus, xhr, response){
 
                  console.log(result);
-
-             }
+                 document.getElementById(no).parentNode.parentNode.innerHTML ="";
+             },
+            
         });
     };
-
-
-
      for (var i = 0 ; i < delete_button.length; i++) {
     	 delete_button[i].addEventListener('click' , event_handler , false ); 
     }
+}
+</script>
+<script>
+window.onload = function(){
+    var submit_buttom = document.getElementById("submit_buttom");
+    
+
+     var event_handler = function(event){
+        var description = document.getElementById("desc").value;
+        var name = document.getElementById("name").value;
+        var blog = "${blog.id}";
+        
+        $.ajax({
+            url: "${pageContext.servletContext.contextPath}/" + blog + "/admin/category_new?name=" + name + "&description="+description,
+            type: 'GET',
+            cache : false,
+            dataType : "json",
+            success:function(result, textStatus, xhr, response){
+
+                 console.log(result);
+                 
+                 document.getElementsByTagName("tbody")[0].innerHTML+=
+                	   "<tr><td>"+ result.no 
+                	 +"</td><td>"+ result.name
+                	 +"</td><td>0</td><td>"+result.description+"</td><td><img src='/jblog2/assets/images/delete.jpg' class='delete_button' id='"+result.no+"'></td></tr>";
+             },
+            
+        });
+    };
+
+    submit_buttom.addEventListener('click' , event_handler , false ); 
+
 }
 </script>
 </html>

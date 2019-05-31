@@ -20,7 +20,6 @@ public class CategoryDAO {
 	}
 
 	public List<Long> getNoById(String id) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList("category.getNoById",id);
 	}
 
@@ -31,5 +30,25 @@ public class CategoryDAO {
 	public List<Category> getCategoryListTable(String id) {
 		return sqlSession.selectList("category.getListInfo",id);
 	}
+
+	public void deleteCategory(String id, Long no) {
+		Category category = new Category();
+		category.setId(id);
+		category.setNo(no);
+		sqlSession.delete("category.deleteCategory", category);
+	}
+
+	public void createCategory(String id, String name, String description) {
+		Category category = new Category();
+		category.setId(id);
+		category.setName(name);
+		category.setDescription(description);
+		sqlSession.insert("category.createCategory", category);
+	}
+
+	public Category getLastCategory(String id) {
+		return sqlSession.selectOne("category.getLastCategory", id);
+	}
+
 
 }
