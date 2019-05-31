@@ -126,3 +126,10 @@ div#footer p	{ text-align:center; margin:0; padding:8px 10px }
 
 
 .delete_button						{ cursor:pointer;}
+.error_message{
+	color: red; 
+	font-weight: bold; 
+	text-align: left; 
+	padding:0;
+	margin:0;
+}

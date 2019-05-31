@@ -5,13 +5,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class User {
 
+	@NotEmpty
+	@Length(min=4, max=15)
 	private String id;
 	
 	@NotEmpty
-	@Length(min=2, max=8)
+	@Length(min=2, max=10)
 	private String name;
 	
 	@NotEmpty
+	@Length(min=8, max=20)
 	private String password;
 	
 	private String reg_date;

@@ -26,4 +26,8 @@ public class UserService {
 		return userDAO.LoginAuth(user);
 	}
 
+	public Boolean JudgeDuplicate(String id) {
+		return userDAO.JudgeDuplicate(id) != null;
+	}
+
 }

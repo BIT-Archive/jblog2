@@ -10,7 +10,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cafe24.jblog2.controller.api.JSONResult;
 import com.cafe24.jblog2.service.BlogService;
 import com.cafe24.jblog2.service.UserService;
 import com.cafe24.jblog2.vo.User;
@@ -28,7 +31,6 @@ public class UserController {
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join_GET() {
-		System.out.println("join");
 		return "user/join";
 	}
 
@@ -43,7 +45,7 @@ public class UserController {
 			model.addAllAttributes(result.getModel());
 		
 		
-			return "/user/join";
+			return "user/join";
 		}
 		
 		userService.join(user);
@@ -81,6 +83,15 @@ public class UserController {
 		session.removeAttribute("authUser");
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/api/checkId")
+	@ResponseBody
+	public JSONResult checkEmail(@RequestParam(value="param", required=true) String id) {
+		
+		Boolean judge = userService.JudgeDuplicate(id);
+		
+		return JSONResult.success(judge);
 	}
 	
 	

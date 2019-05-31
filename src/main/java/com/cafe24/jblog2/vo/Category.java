@@ -2,13 +2,13 @@ package com.cafe24.jblog2.vo;
 
 public class Category {
 	
-	long no;
-	String name;
-	String description;
-	String reg_date;
-	String id;
+	private long no;
+	private String name;
+	private String description;
+	private String reg_date;
+	private String id;
 	
-	long count;
+	private long count;
 	
 
 	public Category() {

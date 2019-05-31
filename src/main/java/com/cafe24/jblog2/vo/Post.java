@@ -1,11 +1,19 @@
 package com.cafe24.jblog2.vo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Post {
 	
+	
 	private long no;
+	
+	@NotEmpty
 	private String title;
+	
 	private String contents;
+	
 	private String reg_date;
+	
 	private long category_no;
 	
 	private String id;

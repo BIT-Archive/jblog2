@@ -34,6 +34,16 @@
 	
 	</insert>
 	
+	<select id="JudgeDuplicate" parameterType="string" resultType="user">
+	
+	<![CDATA[
+		select *
+		from user
+		where id=#{id};
+	]]>
+	
+	</select>
+	
 	
 
 </mapper>

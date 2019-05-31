@@ -56,15 +56,11 @@
 		      	</table> 
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/include/blog_footer.jsp"/>
 	</div>
 </body>
 <script>
-window.onload = function(){
+
     var delete_button = document.getElementsByClassName("delete_button");
     
 
@@ -81,14 +77,14 @@ window.onload = function(){
 
                  console.log(result);
                  document.getElementById(no).parentNode.parentNode.innerHTML ="";
-             },
+             }
             
         });
     };
      for (var i = 0 ; i < delete_button.length; i++) {
     	 delete_button[i].addEventListener('click' , event_handler , false ); 
     }
-}
+
 </script>
 <script>
 window.onload = function(){
@@ -113,7 +109,7 @@ window.onload = function(){
                 	   "<tr><td>"+ result.no 
                 	 +"</td><td>"+ result.name
                 	 +"</td><td>0</td><td>"+result.description+"</td><td><img src='/jblog2/assets/images/delete.jpg' class='delete_button' id='"+result.no+"'></td></tr>";
-             },
+             }
             
         });
     };

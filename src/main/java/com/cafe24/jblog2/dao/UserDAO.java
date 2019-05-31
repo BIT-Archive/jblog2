@@ -34,4 +34,10 @@ public class UserDAO {
 		return sqlSession.selectOne("user.LoginAuth", user);
 	}
 
+
+	public User JudgeDuplicate(String id) {
+		User user = sqlSession.selectOne("user.JudgeDuplicate", id);
+		return user;
+	}
+
 }

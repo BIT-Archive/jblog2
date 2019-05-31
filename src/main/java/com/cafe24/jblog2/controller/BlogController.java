@@ -1,5 +1,6 @@
 package com.cafe24.jblog2.controller;
 
+import java.net.URLEncoder;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafe24.jblog2.security.Auth;
 import com.cafe24.jblog2.service.BlogService;
 import com.cafe24.jblog2.vo.Blog;
 import com.cafe24.jblog2.vo.Category;
@@ -43,6 +45,7 @@ public class BlogController {
 		return "blog/blog-main";
 	}
 
+	@Auth
 	@RequestMapping(value="/admin/basic", method=RequestMethod.GET)
 	public String admin_get(@PathVariable("id") String id,
 							HttpSession session,
@@ -53,6 +56,7 @@ public class BlogController {
 		return "blog/blog-admin-basic";
 	}
 	
+	@Auth
 	@RequestMapping(value="/admin/basic", method=RequestMethod.POST)
 	public String admin_post(@PathVariable("id") String id,
 							HttpSession session,
@@ -64,9 +68,10 @@ public class BlogController {
 		
 		blogService.UpdateBlog(blog, url);
 		
-		return "redirect:/"+id;
+		return "redirect:/"+ URLEncoder.encode(id);
 	}
 	
+	@Auth
 	@RequestMapping(value="/admin/write", method=RequestMethod.GET)
 	public String write_get(@PathVariable("id") String id,
 						Model model,
@@ -79,6 +84,7 @@ public class BlogController {
 		return "blog/blog-admin-write";
 	}
 	
+	@Auth
 	@RequestMapping(value="/admin/write", method=RequestMethod.POST)
 	public String write_get(@PathVariable("id") String id,
 						Model model,
@@ -88,9 +94,10 @@ public class BlogController {
 		blogService.insertPost(post);
 		
 		
-		return "redirect:/"+id;
+		return "redirect:/"+ URLEncoder.encode(id);
 	}
 	
+	@Auth
 	@RequestMapping(value="/admin/category")
 	public String category(@PathVariable("id") String id,
 						Model model,
@@ -102,6 +109,7 @@ public class BlogController {
 		return "blog/blog-admin-category";
 	}
 	
+	@Auth
 	@RequestMapping(value="/admin/delete")
 	public @ResponseBody String delete_ajax(@PathVariable("id") String id,
 						Model model,
@@ -115,7 +123,7 @@ public class BlogController {
 		return "삭제 성공!";
 	}
 	
-	
+	@Auth
 	@RequestMapping(value="/admin/category_new")
 	public @ResponseBody Category delete_ajax(@PathVariable("id") String id,
 						Model model,
