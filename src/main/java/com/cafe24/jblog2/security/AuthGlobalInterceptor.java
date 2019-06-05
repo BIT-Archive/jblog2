@@ -27,10 +27,13 @@ public class AuthGlobalInterceptor extends HandlerInterceptorAdapter {
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		
 		Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
+		Auth adminRole = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Auth.class);
 		
 		if(auth == null) {
 			return true;
 		}
+		
+		
 		
 		HttpSession session = request.getSession();
 		
@@ -43,6 +46,20 @@ public class AuthGlobalInterceptor extends HandlerInterceptorAdapter {
 		if( authUser == null ) {
 			response.sendRedirect(request.getContextPath()+"/user/login");
 			return false;
+		}
+		
+
+		if( adminRole != null ) {
+			String role = adminRole.role().toString();
+			System.out.println(role);
+			System.out.println(role);
+			System.out.println(role);
+			if( "ADMIN".equals(role) ) {
+				if( "root".equals(authUser.getId()) == false ){
+					response.sendRedirect(request.getContextPath());
+					return false;
+				}
+			}
 		}
 		
 	
