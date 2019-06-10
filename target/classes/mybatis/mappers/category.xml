@@ -29,9 +29,9 @@
 	<select id="getListInfo" parameterType="string" resultType="category">
 	<![CDATA[	
 		select c.no, c.name, count(p.no) as count, description
-		from category c, post p
-		where c.no = p.category_no
-		and id=#{id}
+		from category c left join post p
+		on c.no = p.category_no
+		where id=#{id}
 		group by c.name
 	]]>
 	</select>
@@ -52,7 +52,7 @@
 		<![CDATA[
 	
 		insert into category
-			values(null, "미분류", "카테고리를 지정하지 않은 경우", now(), #{id}, "spring-logo.jpg")
+			values(null, "미분류", "카테고리를 지정하지 않은 경우", now(), #{id})
 		
 		]]>
 	
