@@ -13,9 +13,6 @@ import com.cafe24.jblog2.vo.User;
 
 public class AuthGlobalInterceptor extends HandlerInterceptorAdapter {
 
-	@Autowired
-	private UserDAO userDAO;
-
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -42,25 +39,22 @@ public class AuthGlobalInterceptor extends HandlerInterceptorAdapter {
 			return false;
 		}
 		
+
 		User authUser = (User) session.getAttribute("authUser");
+		
 		if( authUser == null ) {
 			response.sendRedirect(request.getContextPath()+"/user/login");
 			return false;
 		}
 		
-
-		if( adminRole != null ) {
-			String role = adminRole.role().toString();
-			System.out.println(role);
-			System.out.println(role);
-			System.out.println(role);
-			if( "ADMIN".equals(role) ) {
-				if( "root".equals(authUser.getId()) == false ){
-					response.sendRedirect(request.getContextPath());
-					return false;
-				}
-			}
+		String url_token[] = request.getRequestURI().split("/");
+		String id = url_token[2];
+		
+		if(id.equals(authUser.getId()) == false) {
+			response.sendRedirect(request.getContextPath()+"/user/login");
+			return false;
 		}
+
 		
 	
 
